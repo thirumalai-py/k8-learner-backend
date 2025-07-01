@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: learn-api-config
+  namespace: lp
+data:
+  PORT: {{ .Values.service.port | quote }}

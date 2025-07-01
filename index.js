@@ -1,13 +1,12 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const connect = require("./database/mongoDb");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
-// require("dotenv").config();
-require("dotenv").config({ path: "config.env" });
+
 
 const studentRoutes = require("./routes/student.routes");
 const adminRoutes = require("./routes/admin.routes");
@@ -39,5 +38,5 @@ app.get("/", (req, res) => {
 
 app.listen(port, () => {
   connect();
-  console.log(`Example app listening at http://localhost:3000`);
+  console.log(`Example app listening at http://localhost:3001`);
 });

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: learn-api
+  namespace: lp
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: learn-api
+  template:
+    metadata:
+      labels:
+        app: learn-api
+    spec:
+      containers:
+      - name: learn-api
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        envFrom:
+        - configMapRef:
+            name: learn-api-config
+        env:
+        - name: ATLAS_URI
+          valueFrom:
+            secretKeyRef: 
+              name: learn-api-secret
+              key: ATLAS_URI
+        - name: HASH_KEY
+          valueFrom:
+            secretKeyRef:   
+              name: learn-api-secret
+              key: HASH_KEY
+        - name: JWT_SECRET_KEY
+          valueFrom:  
+            secretKeyRef:   
+              name: learn-api-secret
+              key: JWT_SECRET_KEY
+
