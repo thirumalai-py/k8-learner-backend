@@ -101,7 +101,7 @@ pipeline {
                         --set-string jwt_secret_key="thisIsMyJwtSecretKeyDev" \
                         --set replicaCount=2 \
                         --set service.port=80 \
-                        --set service.tatargetPort=3001 \
+                        --set service.targetPort=3001 \
                         --set-string service.type="LoadBalancer" \
                         --kubeconfig \$KUBECONFIG
 
