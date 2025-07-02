@@ -81,3 +81,12 @@ sudo mv kubectl /usr/local/bin
 kubectl version --client
 
 
+
+-- Fixes on the code
+Need to add 
+"0.0.0.0" on the index.js to allow working from outside pod or internet else the Loadbalancer will not work
+
+app.listen(port, "0.0.0.0", () => {
+  connect();
+  console.log(`Example app listening at http://localhost:3001`);
+});
