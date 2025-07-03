@@ -1,17 +1,16 @@
 replicaCount: 1
 
 image:
-  repository: thirumalaipy/learnapi
-  tag: v1
+  repository: 
+  tag: 
 
 service:
-  container_port: 3001
-  port: 3001
-  targetPort: 3001
-  type: NodePort
+  port:
+  targetPort:
+  type:
 
-database_url: "mongodb+srv://thirumalaipy:SL2OuQmQhJs9UwFP@cluster0.1uz02.mongodb.net/learnerReport?retryWrites=true&w=majority"
+database_url:
 
-hash_key: thisIsMyHashKey
-jwt_secret_key: thisIsMyJwtSecretKey
+hash_key:
+jwt_secret_key:
 

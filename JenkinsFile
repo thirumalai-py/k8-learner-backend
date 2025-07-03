@@ -9,6 +9,9 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('thiru-access-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('thiru-secret-access-key')
         CLUSTER_NAME = "thiru-cluster-1"
+        DATABASE_URL = credentials('learn-api-db')
+        HASH_KEY = credentials('learn-hash-key')
+        JWT_SECRET_KEY = credentials('learn-jwt-secret-key')
     }
 
     stages {
@@ -52,7 +55,6 @@ pipeline {
                     docker push ${ECR_REPO}:${IMAGE_TAG}
 
                     echo "Image Pushed to ECR"
-
                 """
             }
         }
@@ -67,9 +69,6 @@ pipeline {
                 """
             }
         }
-
-        
-
 
         stage("Deploy to EKS ") {
             steps {
@@ -89,16 +88,15 @@ pipeline {
                     echo "Check nodes..."
                     kubectl --kubeconfig=\$KUBECONFIG get nodes
 
-                    echo "Deploy helm"
-
+                    echo "Deploying EKS Helm.."
 
                     helm upgrade --install learn-api ./learn-api \
                         -f ./learn-api/values.yaml \
                         --set-string image.repository=${ECR_REPO} \
                         --set-string image.tag=${IMAGE_TAG} \
-                        --set-string database_url="mongodb+srv://thirumalaipy:SL2OuQmQhJs9UwFP@cluster0.1uz02.mongodb.net/learnerReport?retryWrites=true&w=majority" \
-                        --set-string hash_key="thisIsMyHashKeydev" \
-                        --set-string jwt_secret_key="thisIsMyJwtSecretKeyDev" \
+                        --set-string database_url="${DATABASE_URL}" \
+                        --set-string hash_key="${HASH_KEY}" \
+                        --set-string jwt_secret_key="${JWT_SECRET_KEY}" \
                         --set replicaCount=2 \
                         --set service.port=80 \
                         --set service.targetPort=3001 \

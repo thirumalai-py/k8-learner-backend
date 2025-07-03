@@ -40,22 +40,31 @@ cd /learn-api/
 
 helm upgrade --install learn-api . -f values.yaml
 
-- Run Helm as Variable
+- Run Helm as Variable in local
 
 helm upgrade --install learn-api . \
 -f values.yaml \
 --set-string image.repository="thirumalaipy/learnapi" \
 --set-string image.tag="v1" \
---set-string database_url="mongodb+srv://thirumalaipy:SL2OuQmQhJs9UwFP@cluster0.1uz02.mongodb.net/learnerReport?retryWrites=true&w=majority" \
+--set-string database_url="mongo_db_url" \
 --set-string hash_key="thisIsMyHashKeydev" \
 --set-string jwt_secret_key="thisIsMyJwtSecretKeyDev" \
---set replicaCount=2
+--set service.port=80 \
+--set service.targetPort=3001 \
+--set-string service.type="NodePort" \ 
+--set replicaCount=1
 
 
 - Port Forward in local
 `kubectl port-forward service/learn-api-service 3001:3001 -n lp`
 
 
+
+
+
+
+
+----------------
 - Create Cluster
 
 eksctl create cluster \
@@ -81,7 +90,6 @@ sudo mv kubectl /usr/local/bin
 kubectl version --client
 
 
-
 -- Fixes on the code
 Need to add 
 "0.0.0.0" on the index.js to allow working from outside pod or internet else the Loadbalancer will not work
@@ -95,3 +103,4 @@ app.listen(port, "0.0.0.0", () => {
 -- Debug the port error
 
 kubectl exec -it learn-api-5865b4465f-g74lf -n lp -- bash
+
