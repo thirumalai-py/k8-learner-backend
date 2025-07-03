@@ -4,4 +4,4 @@ metadata:
   name: learn-api-config
   namespace: lp
 data:
-  PORT: 3001
+  PORT: {{ .Values.service.container_port | quote }}
