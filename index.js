@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
   res.send("Hello World! check");
 });
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   connect();
   console.log(`Example app listening at http://localhost:3001`);
 });
