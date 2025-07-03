@@ -90,3 +90,8 @@ app.listen(port, "0.0.0.0", () => {
   connect();
   console.log(`Example app listening at http://localhost:3001`);
 });
+
+
+-- Debug the port error
+
+kubectl exec -it learn-api-5865b4465f-g74lf -n lp -- bash
