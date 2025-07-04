@@ -1,4 +1,4 @@
-# learnerReportCS_backend
+# 🎯 Learner Website Backend – Kubernetes Deployment
 
 A Node.js + MongoDB REST API backend for learner reporting and management.
 
@@ -105,10 +105,11 @@ docker run -d -p 3001:3001 --name api-learn \
 ### Prerequisites
 
  - AWS CLI configured (aws configure)
- - `kubectl installed and configured for your EKS cluster
+ - `kubectl` installed and configured for your EKS cluster
  - Helm installed
  - An ECR repository for your Docker images
  - Jenkins server (with access credentials)
+ - Mongo is hosted on the `MongoDB Atlas` and connected to the backend API
 
 
 ### 1️⃣ Create Helm Chart
@@ -188,7 +189,7 @@ kubectl config use-context arn:aws:eks:ap-south-1:<account_id>:cluster/thiru-clu
 
 ![alt text](output/eks_cluster_namespaces.png)
 
-#### Output EKS Cluster - Listing Pods, SVC, helm
+#### Output EKS Cluster - Listing Pods, SVC, Helm
 
 ![alt text](output/eks_cli_output.png)
 
@@ -297,6 +298,10 @@ After deployment:
 
 ![alt text](output/api_custom_domain.png)
 
+
+#### Output - Mongo DB Data storing
+
+![alt text](output/mongo_db.png)
 
 
 ### ✨ SSL Mapping (Optional)
